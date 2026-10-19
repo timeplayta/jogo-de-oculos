@@ -1,0 +1,11 @@
+# Blender / editor
+*.blend1
+*.blend2
+__pycache__/
+.DS_Store
+Thumbs.db
+
+# Local / deploy
+.netlify/
+node_modules/
+.DS_Store

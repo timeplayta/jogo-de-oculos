@@ -1,0 +1,11 @@
+Delivery vehicles (CC0 1.0)
+
+1) Delivery Truck (primary)
+   Source: https://grab3d.com/models/vehicles/delivery-truck/
+   File: delivery-truck.glb
+   License: CC0 1.0
+
+2) Delivery Van (fallback)
+   Source: https://grab3d.com/models/vehicles/delivery-van/
+   File: delivery-van.glb
+   License: CC0 1.0

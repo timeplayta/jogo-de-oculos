@@ -1,0 +1,117 @@
+{
+  "slug": "warehouse",
+  "name": {
+    "en": "Warehouse",
+    "de": "Lagerhalle",
+    "es": "Nave industrial"
+  },
+  "summary": "Blue-clad warehouse hall with a loading dock, roller doors, roof light strips and a marked yard: a practical industrial block for city and logistics games.",
+  "category": "buildings",
+  "categoryName": "Buildings & Architecture",
+  "tier": "lightweight",
+  "style": "stylized",
+  "kit": {
+    "slug": "cozy-buildings",
+    "name": "Cozy Buildings Kit",
+    "page": "https://grab3d.com/kits/cozy-buildings/"
+  },
+  "tags": [
+    "warehouse",
+    "industrial",
+    "storage",
+    "building",
+    "city builder",
+    "town",
+    "stylized"
+  ],
+  "license": "CC0-1.0",
+  "origin": {
+    "method": "procedural",
+    "aiContent": false,
+    "aiAssistedCode": true,
+    "detail": "Built procedurally with Blender scripts. The scripts were written with the help of an AI coding assistant. No generative AI model produced the geometry or textures directly.",
+    "licenseUrl": "https://grab3d.com/dl/warehouse/LICENSE.txt",
+    "manifestUrl": "https://grab3d.com/dl/warehouse/manifest.json"
+  },
+  "created": "2026-09-26",
+  "specs": {
+    "triangles": 32456,
+    "trianglesLight": 17378,
+    "texturePx": 2048,
+    "texturePxLight": 1024,
+    "maps": [
+      "baseColor",
+      "roughness",
+      "metallic",
+      "normal"
+    ],
+    "dimensionsMeters": [
+      44,
+      39.3,
+      9.54
+    ],
+    "movingParts": []
+  },
+  "media": {
+    "thumbnail": "https://grab3d.com/m/warehouse/warehouse-3d-model.webp",
+    "thumbnailSmall": "https://grab3d.com/m/warehouse/thumb-400.webp",
+    "og": "https://grab3d.com/m/warehouse/og.jpg",
+    "previewGlb": "https://grab3d.com/m/warehouse/preview.glb",
+    "turntableWebm": "https://grab3d.com/m/warehouse/turntable.webm",
+    "turntableMp4": "https://grab3d.com/m/warehouse/turntable.mp4"
+  },
+  "files": [
+    {
+      "format": "glb",
+      "variant": "full",
+      "file": "warehouse.glb",
+      "bytes": 2765668,
+      "url": "https://grab3d.com/dl/warehouse/warehouse.glb"
+    },
+    {
+      "format": "fbx",
+      "variant": "full",
+      "file": "warehouse.fbx",
+      "bytes": 4109276,
+      "url": "https://grab3d.com/dl/warehouse/warehouse.fbx"
+    },
+    {
+      "format": "blend",
+      "variant": "full",
+      "file": "warehouse.blend",
+      "bytes": 2154627,
+      "url": "https://grab3d.com/dl/warehouse/warehouse.blend"
+    },
+    {
+      "format": "usdz",
+      "variant": "full",
+      "file": "warehouse.usdz",
+      "bytes": 3895132,
+      "url": "https://grab3d.com/dl/warehouse/warehouse.usdz"
+    },
+    {
+      "format": "obj-zip",
+      "variant": "full",
+      "file": "warehouse-obj.zip",
+      "bytes": 2152642,
+      "url": "https://grab3d.com/dl/warehouse/warehouse-obj.zip"
+    },
+    {
+      "format": "glb",
+      "variant": "light",
+      "file": "warehouse-light.glb",
+      "bytes": 1410864,
+      "url": "https://grab3d.com/dl/warehouse/warehouse-light.glb"
+    },
+    {
+      "format": "fbx",
+      "variant": "light",
+      "file": "warehouse-light.fbx",
+      "bytes": 1983356,
+      "url": "https://grab3d.com/dl/warehouse/warehouse-light.fbx"
+    }
+  ],
+  "rigged": null,
+  "relatedVariant": null,
+  "page": "https://grab3d.com/models/buildings/warehouse/"
+}

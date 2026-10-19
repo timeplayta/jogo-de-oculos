@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Óculos IA — Galpão Logístico</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Orbitron:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="c"></canvas>
+
+    <div id="vignette" aria-hidden="true"></div>
+    <div id="film-grain" aria-hidden="true"></div>
+
+    <!-- Óculos HUD (estilo Meta / AR) -->
+    <div id="glasses-hud" class="hidden">
+      <div class="lens lens-left"></div>
+      <div class="lens lens-right"></div>
+      <div class="hud-frame"></div>
+      <div class="scan-line"></div>
+      <div class="depth-grid" aria-hidden="true"></div>
+
+      <div class="hud-top">
+        <span class="brand">VISION AI</span>
+        <span id="hud-status" class="status">ESCANSÃO ATIVA</span>
+        <span id="hud-clock" class="clock">00:00</span>
+      </div>
+
+      <div class="hud-meta">
+        <span id="hud-aisle">CORREDOR —</span>
+        <span id="hud-dist">DIST — m</span>
+        <span id="hud-battery">BAT 94%</span>
+      </div>
+
+      <div id="compass" class="compass">
+        <div id="compass-needle" class="compass-needle"></div>
+        <span>NAV</span>
+      </div>
+
+      <div id="reticle" class="reticle">
+        <div class="r-corner tl"></div>
+        <div class="r-corner tr"></div>
+        <div class="r-corner bl"></div>
+        <div class="r-corner br"></div>
+        <div class="r-core"></div>
+      </div>
+
+      <div id="ai-panel" class="ai-panel hidden">
+        <div class="ai-tag">SISTEMA DE ITENS · WMS</div>
+        <div id="ai-auth" class="ai-auth">—</div>
+        <div id="ai-title" class="ai-title">—</div>
+        <div id="ai-cat" class="ai-cat">—</div>
+        <div id="ai-desc" class="ai-desc">—</div>
+        <div id="ai-inside" class="ai-inside">—</div>
+        <div id="ai-meta" class="ai-meta">—</div>
+        <div id="ai-action" class="ai-action">—</div>
+        <div class="ai-bar"><i id="ai-bar-fill"></i></div>
+      </div>
+
+      <div id="mission-toast" class="mission-toast">
+        <strong>MISSÃO · EXPEDIÇÃO A-204</strong>
+        <p id="mission-text">Óculos marca a caixa <em>verde → VAN</em> (Sensor IoT). Escaneie, pegue, <em>abra na bancada</em>, entregue. Itens bloqueados: quarentena ou retorno.</p>
+      </div>
+
+      <div class="hud-bottom">
+        <span>WASD mover</span>
+        <span>Mouse olhar</span>
+        <span>E pegar / abrir / entregar</span>
+        <span>Shift correr</span>
+      </div>
+    </div>
+
+    <div id="carry-hint" class="carry-hint hidden">Caixa fechada — abra na BANCADA</div>
+
+    <div id="overlay-start" class="overlay">
+      <div class="card-start">
+        <p class="eyebrow">Turno 03 · Doca Oeste · Visão aumentada</p>
+        <h1>ÓCULOS IA</h1>
+        <p class="lead">Os óculos consultam o sistema de itens: dizem o que pode ir na van e o que é bloqueado. Você abre na bancada, confirma o conteúdo e encaminha certo.</p>
+        <ul>
+          <li>Caixa verde marcada = autorizada para a van</li>
+          <li>Bancada para abrir e ver o que tem dentro</li>
+          <li>Bloqueados vão pra quarentena ou área de retorno</li>
+        </ul>
+        <div class="start-actions">
+          <button id="btn-start">COLOCAR ÓCULOS E JOGAR</button>
+          <button id="btn-settings-start" class="btn-ghost" type="button">CONFIGURAÇÕES</button>
+        </div>
+        <p class="tiny">Use http://localhost:8765 (serve.ps1) · Esc = configurações · Fones recomendados</p>
+      </div>
+    </div>
+
+    <div id="overlay-settings" class="overlay hidden">
+      <div class="card-settings">
+        <p class="eyebrow">Sistema</p>
+        <h2>CONFIGURAÇÕES</h2>
+
+        <label class="setting-row">
+          <span class="setting-label">
+            <strong>Luzes e sombras</strong>
+            <small>Sombras nos objetos (pode pesar no PC)</small>
+          </span>
+          <input id="opt-shadows" type="checkbox" checked />
+        </label>
+
+        <label class="setting-row">
+          <span class="setting-label">
+            <strong>Luzes do teto</strong>
+            <small>Iluminação extra do galpão</small>
+          </span>
+          <input id="opt-ceiling-lights" type="checkbox" checked />
+        </label>
+
+        <label class="setting-row">
+          <span class="setting-label">
+            <strong>Volume</strong>
+            <small>Som ambiente e efeitos</small>
+          </span>
+          <div class="setting-slider">
+            <input id="opt-volume" type="range" min="0" max="100" value="70" />
+            <span id="opt-volume-val">70%</span>
+          </div>
+        </label>
+
+        <label class="setting-row">
+          <span class="setting-label">
+            <strong>Velocidade da câmera</strong>
+            <small>Quão rápido o olhar gira com o mouse</small>
+          </span>
+          <div class="setting-slider">
+            <input id="opt-sensitivity" type="range" min="20" max="200" value="70" />
+            <span id="opt-sensitivity-val">70%</span>
+          </div>
+        </label>
+
+        <label class="setting-row">
+          <span class="setting-label">
+            <strong>Velocidade de andar</strong>
+            <small>Quão rápido o personagem se move</small>
+          </span>
+          <div class="setting-slider">
+            <input id="opt-move-speed" type="range" min="30" max="150" value="70" />
+            <span id="opt-move-speed-val">70%</span>
+          </div>
+        </label>
+
+        <label class="setting-row">
+          <span class="setting-label">
+            <strong>Qualidade gráfica</strong>
+            <small>Resolução e mapa de sombra</small>
+          </span>
+          <select id="opt-quality">
+            <option value="low">Baixa</option>
+            <option value="medium" selected>Média</option>
+            <option value="high">Alta</option>
+          </select>
+        </label>
+
+        <div class="settings-actions">
+          <button id="btn-settings-close" type="button">VOLTAR</button>
+        </div>
+        <p class="tiny">As opções são salvas neste navegador</p>
+      </div>
+    </div>
+
+    <div id="overlay-win" class="overlay hidden">
+      <div class="card-start">
+        <p class="eyebrow">Entrega concluída · Rota A-204</p>
+        <h1>VAN A CAMINHO</h1>
+        <p class="lead">Item autorizado inspecionado na bancada e embarcado. A van saiu da doca. Bom trabalho, operador.</p>
+        <button id="btn-restart">JOGAR DE NOVO</button>
+      </div>
+    </div>
+
+    <button id="btn-settings-hud" class="btn-settings-hud hidden" type="button" title="Configurações (Esc)">⚙</button>
+  </div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://unpkg.com/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://unpkg.com/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
+  <script type="module" src="main.js"></script>
+</body>
+</html>

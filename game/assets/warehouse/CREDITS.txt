@@ -1,0 +1,18 @@
+Warehouse assets (CC0)
+
+1) Exterior building
+   Source: https://grab3d.com/models/buildings/warehouse/
+   File: warehouse.glb
+   License: CC0 1.0
+
+2) Pallet rack shelves
+   Source: https://grab3d.com/models/tools/pallet-rack/
+   File: pallet-rack-light.glb
+   License: CC0 1.0
+
+3) Empty Warehouse HDRI + concrete / metal textures
+   Source: https://polyhaven.com/
+   - empty_warehouse_01 (Sergej Majboroda)
+   - concrete_floor_painted
+   - metal_plate
+   License: CC0 1.0
